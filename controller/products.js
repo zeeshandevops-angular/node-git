@@ -1,15 +1,42 @@
 const productScheme = require("../models/productsSchema")
 
-const getAllProducts = async (req,res) =>{
+const getAllProducts = async (req, res) => {
+    const { company, name, sort,select } = req.query;
+    const queryObject = {};
 
-    const data= await productScheme.find({name:"iphone 15"})
-    res.status(200).json({data});
+    if (company) {
+
+        queryObject.company = company;
+    }
+
+    if (name) {
+
+        queryObject.name = { $regex: name, $options: "i" };
+    }
+
+    let apiUrl = productScheme.find(queryObject)
+
+    if (sort) {
+
+        let sorting = sort.replace(",", " ")
+        apiUrl = apiUrl.sort(sorting);
+    }
+
+    if (select) {
+        let selectval = select.split(",").join(" ");
+        apiUrl = apiUrl.select(selectval);
+    }
+
+    let page = req.query.page || 1;
+    let limit =req.query.limit || 3;
+
+    let skip =(page -1 ) * limit;
+
+    apiUrl=apiUrl.skip(skip).limit(limit);
+
+    const products = await apiUrl;
+    res.status(200).json({ products, nbits:products.length });
 }
 
-const getAllProductsTesting = async (req,res) =>{
-    res.status(200).json({
-        msg:"I am get all products testing"
-    })
-}
 
-module.exports = [getAllProducts,getAllProductsTesting]
+module.exports = [getAllProducts]
