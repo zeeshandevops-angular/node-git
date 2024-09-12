@@ -1,0 +1,45 @@
+[
+    {
+        "name":"iphone 15",
+        "price": 2000,
+        "feature": true,
+        "company": "apple"
+    },
+    {
+        "name":"iphone 16",
+        "price": 3000,
+        "feature": true,
+        "company": "apple"
+    },
+    {
+        "name":"iphone 14",
+        "price": 500,
+        "feature": true,
+        "company": "apple"
+    },
+    {
+        "name":"samsung galaxy 10",
+        "price": 1350,
+        "feature": true,
+        "company": "samsung"
+    },
+    {
+        "name":"samsung galaxy 11",
+        "price": 1500,
+        "feature": true,
+        "company": "samsung"
+    },
+    {
+        "name":"samsung galaxy 12",
+        "price": 2000,
+        "feature": true,
+        "company": "samsung"
+    },
+    {
+        "name":"mi note",
+        "price": 50,
+        "feature": true,
+        "company": "mi"
+    }
+
+]
