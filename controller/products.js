@@ -1,8 +1,27 @@
+const { query } = require("express");
 const productScheme = require("../models/productsSchema")
 
-const getAllProducts = async (req,res) =>{
+const getAllProducts = async (req,res) =>{ 
 
-    const data= await productScheme.find({name:"iphone 15"})
+    const {name,price,sort}=req.query;
+    const queryObject={};
+
+    if(name)
+    {
+        queryObject.name= {$regex : name};
+    }
+    if(price)
+    {
+        queryObject.price= price;
+    }
+    let schema=productScheme.find(queryObject)
+    if(sort)
+    {
+        let sortFix=sort.replaceAll(","," ");
+        schema.sort(sortFix)
+    }
+
+    const data= await schema; 
     res.status(200).json({data});
 }
 
